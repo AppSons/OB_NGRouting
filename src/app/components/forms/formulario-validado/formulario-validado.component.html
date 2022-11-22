@@ -1,0 +1,62 @@
+<form [formGroup]="miFormValidado" (submit)="enviarFormulario()">
+
+    <h2>Datos en tiempo real del formulario</h2>
+    <!--usamos un Pipe para mostrar los datos en un Json-->
+    <p>{{ miFormValidado.value | json }}</p>
+
+    <!--Campos del Formulario-Mensaje de Error por validación -->
+    <input placeholder="Nombre" formControlName="nombre"/>
+    <div *ngIf="nombre?.errors?.['required'] && nombre?.touched">
+        <p [ngStyle]="{color: 'tomato'}"> El Campo es Obligatorio</p>
+    </div>
+
+    <!--Apellidos-->
+    <input placeholder="Apellidos" formControlName="apellidos"/>
+
+    <!--Edad-->
+    <input type="number" placeholder="Edad" formControlName="edad"/>
+    <div *ngIf="edad?.errors?.['required'] && edad?.touched">
+        <p [ngStyle]="{color: 'tomato'}"> El Campo Edad es Obligatorio</p>
+    </div>
+    <div *ngIf="edad?.errors?.['min'] && edad?.touched">
+        <p [ngStyle]="{color: 'tomato'}"> 
+           El Campo Edad no puede ser inferior a 18. No puedes registrarte con {{edad?.errors?.['min'].actual}} años.
+        </p>
+    </div>
+    <div *ngIf="edad?.errors?.['max'] && edad?.touched">
+        <p [ngStyle]="{color: 'tomato'}"> 
+           El Campo Edad no puede ser superior a 99. No puedes registrarte con {{edad?.errors?.['max'].actual}} años.
+        </p>
+    </div>
+
+    <!--Email-->
+    <input placeholder="Email" formControlName="email"/>
+    <div *ngIf="email?.errors?.['required'] && email?.touched">
+        <p [ngStyle]="{color: 'tomato'}"> El Campo Email es Obligatorio</p>
+    </div>
+    <div *ngIf="email?.errors?.['email'] && email?.touched">
+        <p [ngStyle]="{color: 'tomato'}"> El formato de Email no es válido</p>
+    </div>
+
+    <!--Password-->
+    <input type="password" placeholder="Password" formControlName="password"/>
+    <div *ngIf="password?.errors?.['required'] && password?.touched">
+        <p [ngStyle]="{color: 'tomato'}"> El Campo Password es Obligatorio</p>
+    </div>
+    <div *ngIf="password?.errors?.['pattern'] && password?.touched">
+        <p [ngStyle]="{color: 'tomato'}"> El formato no es válido</p>
+    </div>
+
+    <!--Acepta-->
+
+    <input type="checkbox" formControlName="acepta"/> Aceptar
+    <div *ngIf="acepta?.errors?.['requiredTrues'] && acepta?.touched">
+        <p [ngStyle]="{color: 'tomato'}"> Debes Aceptar los términos</p>
+    </div>
+
+
+
+    <!--Botón de submit que se activa solo cuando el form es validado-->
+    <button type="submit" [disabled]="miFormValidado.invalid">  Enviar</button>
+
+</form>

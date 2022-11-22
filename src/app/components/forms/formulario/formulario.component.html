@@ -1,0 +1,25 @@
+<!--Formulario reactivo básico-->
+<form [formGroup]="miFormulario">
+    <!--Previsualización de los valores del formulario-->
+    <h2>Datos en tiempo real del formulario</h2>
+    <!--usamos un Pipe para mostrar los datos en un Json-->
+    <p>{{ miFormulario.value | json }}</p>
+
+    <!--Campos del formulario-->
+ 
+    <input mat-input placeholder="Nombre" formControlName="nombre" />
+
+
+    <input mat-input placeholder="Apellidos" formControlName="apellidos" />
+
+
+    <input mat-input placeholder="Email" formControlName="email" />
+
+
+    <input mat-input placeholder="Teléfono" formControlName="telefono" />
+
+
+    <input mat-input placeholder="Dirección" formControlName="direccion" />
+    
+
+</form>
