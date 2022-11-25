@@ -1,0 +1,6 @@
+projectKey=NG_Routing1
+serverUrl=http://localhost:4000
+serverVersion=9.7.1.62043
+dashboardUrl=http://localhost:4000/dashboard?id=NG_Routing1
+ceTaskId=AYSkIvmhxcNhF8mZT2BC
+ceTaskUrl=http://localhost:4000/api/ce/task?id=AYSkIvmhxcNhF8mZT2BC
