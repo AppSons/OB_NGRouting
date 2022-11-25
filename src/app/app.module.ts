@@ -46,6 +46,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { TaskComponent } from './components/task/task.component';
 import { LifeCycleDirective } from './directives/life-cycle.directive';
 import { MouseOverDirective } from './directives/mouse-over.directive';
+import { OnDemandPreloadStrategy } from './routes/preloading-strategies/on-demand-preloading-strategy';
 
 
 @NgModule({
@@ -95,6 +96,7 @@ import { MouseOverDirective } from './directives/mouse-over.directive';
     DragDropModule
   ],
   providers: [
+    OnDemandPreloadStrategy,
     //Registramos el Locale para que los PIPE salgan en español
     {
       provide: LOCALE_ID, useValue: 'es'

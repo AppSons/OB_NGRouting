@@ -3,6 +3,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { PreloadingService } from '../../services/preloading.service';
 
 @Component({
   selector: 'app-nav',
@@ -17,12 +18,21 @@ export class NavComponent {
       shareReplay()
     );
 
-  constructor(private breakpointObserver: BreakpointObserver, private router: Router) {}
+  constructor(private breakpointObserver: BreakpointObserver, private router: Router, private _preloadingService: PreloadingService) {}
 
 
   logout() {
     sessionStorage.removeItem('token');
     this.router.navigate(['login']);
+  }
+
+  /**
+   * Método encargado de precargar un módulo del sistema de rutas de la aplicación
+   * @param route  ruta para cargar módulo
+   */
+  preloadModule(route:string){
+
+    this._preloadingService.comenzarPrecarga(route);
   }
 
 }

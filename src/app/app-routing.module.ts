@@ -9,24 +9,39 @@ import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
 import { RandomContactPageComponent } from './pages/random-contact-page/random-contact-page.component';
 import { TasksPageComponent } from './pages/tasks-page/tasks-page.component';
+import { OnDemandPreloadStrategy } from './routes/preloading-strategies/on-demand-preloading-strategy';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'dashboard'},
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard], children: [
-    { path: '', component: HomePageComponent, canActivate: [AuthGuard] },
-    { path: 'contacts', component: ContactsPageComponent, canActivate: [AuthGuard] },
-    { path: 'contacts/:id', component: ContactDetailsPageComponent, canActivate: [AuthGuard] },
-    { path: 'random', component: RandomContactPageComponent, canActivate: [AuthGuard] },
-    { path: 'tasks', component: TasksPageComponent, canActivate: [AuthGuard] },
-  ] },
-  
+      
+      { path: '', component: HomePageComponent, canActivate: [AuthGuard] },
+      { path: 'contacts', component: ContactsPageComponent, canActivate: [AuthGuard] },
+      { path: 'contacts/:id', component: ContactDetailsPageComponent, canActivate: [AuthGuard] },
+      { path: 'random', component: RandomContactPageComponent, canActivate: [AuthGuard] },
+      { path: 'tasks', component: TasksPageComponent, canActivate: [AuthGuard] },
+      { 
+        path: 'fire-store',
+        loadChildren: () => import('./modules/pages/fire-store/fire-store.module').then(m => m.FireStoreModule),
+        canActivate: [AuthGuard],
+        data: {
+          preload: true
+        }
+      },
+    ]
+  }, 
+
   { path: 'login', component: LoginPageComponent},
   
   { path: '**', component: NotFoundPageComponent}
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes,
+    {
+      preloadingStrategy: OnDemandPreloadStrategy
+    }
+  )],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
